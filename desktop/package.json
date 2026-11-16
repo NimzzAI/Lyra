@@ -1,0 +1,95 @@
+{
+  "name": "lyra-desktop",
+  "productName": "Lyra",
+  "version": "1.0.0",
+  "description": "Lyra for Windows, Linux and macOS",
+  "author": "Nimzz <nimzz@users.noreply.github.com>",
+  "homepage": "https://github.com/Nimzz/Lyra",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "build:win": "electron-builder --win --x64 --publish never",
+    "build:linux": "electron-builder --linux --x64 --publish never",
+    "build:mac": "electron-builder --mac --x64 --arm64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.nimzz.lyra",
+    "productName": "Lyra",
+    "copyright": "Copyright (c) Nimzz. Based on Mori by coflyn.",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "lib/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../public",
+        "to": "public"
+      }
+    ],
+    "protocols": [
+      {
+        "name": "Lyra",
+        "schemes": [
+          "lyra"
+        ]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "Lyra-v${version}-Windows-${arch}-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "Lyra-v${version}-Windows-${arch}-Portable.${ext}"
+    },
+    "linux": {
+      "icon": "build/icons",
+      "category": "AudioVideo",
+      "maintainer": "Nimzz <nimzz@users.noreply.github.com>",
+      "synopsis": "Fast media downloader",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "appImage": {
+      "artifactName": "Lyra-v${version}-Linux-${arch}.${ext}"
+    },
+    "deb": {
+      "artifactName": "Lyra-v${version}-Linux-${arch}.${ext}"
+    },
+    "mac": {
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities",
+      "identity": null,
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "artifactName": "Lyra-v${version}-macOS-${arch}.${ext}"
+    },
+    "dmg": {
+      "artifactName": "Lyra-v${version}-macOS-${arch}.${ext}"
+    }
+  }
+}

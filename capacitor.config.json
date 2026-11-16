@@ -1,0 +1,13 @@
+{
+  "appId": "com.nimzz.lyra",
+  "appName": "Lyra",
+  "webDir": "public",
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    },
+    "CapacitorCookies": {
+      "enabled": true
+    }
+  }
+}

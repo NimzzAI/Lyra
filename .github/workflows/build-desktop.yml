@@ -1,0 +1,92 @@
+name: Build Desktop (Windows, Linux, macOS)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    paths:
+      - 'desktop/**'
+      - 'public/**'
+      - '.github/workflows/build-desktop.yml'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  smoke-linux:
+    name: Launch test (Linux, Xvfb)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install desktop dependencies
+        working-directory: desktop
+        run: npm install --no-audit --no-fund
+
+      - name: Launch Lyra and run self-check
+        working-directory: desktop
+        env:
+          LYRA_SMOKE_TEST: '1'
+        run: xvfb-run -a npx electron . --no-sandbox
+
+  build:
+    needs: smoke-linux
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            script: build:win
+            files: |
+              desktop/dist/*.exe
+          - os: ubuntu-latest
+            script: build:linux
+            files: |
+              desktop/dist/*.AppImage
+              desktop/dist/*.deb
+          - os: macos-latest
+            script: build:mac
+            files: |
+              desktop/dist/*.dmg
+              desktop/dist/*.zip
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install desktop dependencies
+        working-directory: desktop
+        run: npm install --no-audit --no-fund
+
+      - name: Build installers
+        working-directory: desktop
+        run: npm run ${{ matrix.script }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lyra-Desktop-${{ matrix.os }}
+          path: ${{ matrix.files }}
+
+      - name: Upload release assets
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.files }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

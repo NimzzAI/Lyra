@@ -1,0 +1,46 @@
+{
+  "name": "lyra",
+  "version": "1.0.0",
+  "description": "Lyra - fast and versatile media downloader for Android, iOS, Windows, Linux and macOS.",
+  "author": "Nimzz",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nimzz/Lyra.git"
+  },
+  "homepage": "https://github.com/Nimzz/Lyra",
+  "bugs": {
+    "url": "https://github.com/Nimzz/Lyra/issues"
+  },
+  "scripts": {
+    "sync": "npx cap sync",
+    "build:android": "npx cap sync android && cd android && ./gradlew assembleDebug",
+    "build:android:release": "npx cap sync android && cd android && ./gradlew assembleRelease",
+    "build:ios:ipa": "export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 && npx cap sync ios && xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -sdk iphoneos -archivePath build/Lyra.xcarchive archive CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=\"\" && mkdir -p Payload && cp -r build/Lyra.xcarchive/Products/Applications/App.app Payload/ && zip -r \"Lyra v$npm_package_version.ipa\" Payload && rm -rf Payload build",
+    "desktop:install": "npm --prefix desktop install",
+    "desktop:dev": "npm --prefix desktop run dev",
+    "desktop:build:win": "npm --prefix desktop run build:win",
+    "desktop:build:linux": "npm --prefix desktop run build:linux",
+    "desktop:build:mac": "npm --prefix desktop run build:mac"
+  },
+  "dependencies": {
+    "@capacitor-community/media": "^8.0.1",
+    "@capacitor/android": "^7.6.8",
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/cli": "^7.6.8",
+    "@capacitor/clipboard": "^7.0.4",
+    "@capacitor/core": "^7.6.8",
+    "@capacitor/filesystem": "^7.1.8",
+    "@capacitor/haptics": "^7.0.0",
+    "@capacitor/ios": "^7.6.8",
+    "@capacitor/network": "^7.0.4",
+    "@capacitor/share": "^7.0.4",
+    "@capgo/capacitor-native-biometric": "^7.6.0"
+  },
+  "overrides": {
+    "tar": "7.5.21",
+    "brace-expansion": "5.0.9",
+    "undici": "7.29.0"
+  }
+}
