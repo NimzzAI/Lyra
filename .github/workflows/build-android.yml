@@ -25,6 +25,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -53,15 +55,32 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x android/gradlew
 
-      - name: Build release APK
+      - name: Build debug APK
         working-directory: android
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleDebug
 
-      - name: Collect APK
+      - name: Collect debug APK
         run: |
           VERSION=$(node -p "require('./package.json').version")
           mkdir -p dist-assets
+          cp "android/app/build/outputs/apk/debug/Lyra v${VERSION}.apk" "dist-assets/Lyra-v${VERSION}-Android.apk"
+
+      - name: Build signed release APK
+        if: env.ANDROID_KEYSTORE_B64 != ''
+        env:
+          LYRA_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          LYRA_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          LYRA_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "$ANDROID_KEYSTORE_B64" | base64 -d > android/app/release.keystore
+          (cd android && ./gradlew assembleRelease)
           cp "android/app/build/outputs/apk/release/Lyra v${VERSION}.apk" "dist-assets/Lyra-v${VERSION}-Android.apk"
+          rm -f android/app/release.keystore
+
+      - name: Warn about debug signing
+        if: env.ANDROID_KEYSTORE_B64 == ''
+        run: echo "::warning::No ANDROID_KEYSTORE_BASE64 secret found. The APK is debug-signed, so each build has a different signature and cannot update an earlier install."
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4

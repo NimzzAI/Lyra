@@ -83,7 +83,7 @@ Lyra uses **CapacitorJS** paired with a native **OkHttp** bridge (`MainActivity.
 # Build Debug APK
 npm run build:android
 
-# Build Signed Release APK (uses the bundled android/app/lyra.jks)
+# Build Signed Release APK (Requires keystore configured below)
 npm run build:android:release
 ```
 
@@ -102,11 +102,18 @@ cd android
 ./gradlew assembleRelease
 ```
 
-#### Signing
+#### Setting Up Signing Keystore (One-Time)
 
-The repository ships a signing key at `android/app/lyra.jks` (alias `lyra`, password `android123`) and `android/app/build.gradle` uses it for both debug and release builds. Because the key is committed, no secrets are needed: every local or GitHub Actions build is signed with the same key and can update an earlier install.
+```bash
+keytool -genkey -v -keystore android/app/release.keystore -alias lyra \
+  -keyalg RSA -keysize 2048 -validity 10000 \
+  -storepass android123 -keypass android123 \
+  -dname "CN=Lyra, OU=Development, O=LyraApp, L=Unknown, ST=Unknown, C=ID"
+```
 
-The key is public by design, so anyone could sign an APK with it. If you distribute Lyra widely and want a private key, generate your own with `keytool -genkeypair -keystore android/app/lyra.jks -alias lyra -keyalg RSA -keysize 2048 -validity 36500`, update the passwords in `build.gradle`, and keep the new file out of the repository.
+`android/app/build.gradle` already contains the `release` signing config: when `android/app/release.keystore` exists it is used automatically. The passwords default to `android123` and alias `lyra`; override them with the `LYRA_KEYSTORE_PASSWORD`, `LYRA_KEY_ALIAS`, and `LYRA_KEY_PASSWORD` environment variables. Never commit the keystore (it is git-ignored).
+
+For GitHub Actions, add the repository secrets `ANDROID_KEYSTORE_BASE64` (base64 of the keystore), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, and `ANDROID_KEY_PASSWORD`. Without them the workflow publishes a debug-signed APK, which cannot update an earlier install because the signature changes on every build.
 
 ---
 

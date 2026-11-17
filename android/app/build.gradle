@@ -21,11 +21,13 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('lyra.jks')
-            storeType 'pkcs12'
-            storePassword 'android123'
-            keyAlias 'lyra'
-            keyPassword 'android123'
+            def keystoreFile = file('release.keystore')
+            if (keystoreFile.exists()) {
+                storeFile keystoreFile
+                storePassword System.getenv("LYRA_KEYSTORE_PASSWORD") ?: 'android123'
+                keyAlias System.getenv("LYRA_KEY_ALIAS") ?: 'lyra'
+                keyPassword System.getenv("LYRA_KEY_PASSWORD") ?: 'android123'
+            }
         }
     }
     buildTypes {
@@ -33,10 +35,9 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-        debug {
-            signingConfig signingConfigs.release
+            if (file('release.keystore').exists()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     applicationVariants.all { variant ->

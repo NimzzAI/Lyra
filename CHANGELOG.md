@@ -22,7 +22,6 @@ First release of **Lyra**, a rebranded and extended fork of Mori 4.6.0 maintaine
 - **CI workflows** for Android (APK build plus an Android 10 / API 29 emulator smoke test), iOS (unsigned IPA), and desktop (Xvfb launch test and installers for all three systems).
 - **Android 10 hardening**: outdated System WebView detection with a clear update notice.
 - Credits section in About and README linking to the original Mori project.
-- Bundled signing key (`android/app/lyra.jks`) so every build, including GitHub Actions, produces an installable and updatable APK without any secrets.
 
 ### Changed
 
