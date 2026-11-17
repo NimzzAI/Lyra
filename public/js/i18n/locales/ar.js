@@ -399,7 +399,7 @@ export default {
   "share-err-failed": "فشل في تحليل الرابط.",
   "share-err-no-links": "لم يتم العثور على روابط تحميل.",
   "share-err-unsupported": "رابط منصة غير مدعوم.",
-  "share-msg": "جرب تطبيق Lyra الرائع لتحميل الوسائط من أي مكان! https://github.com/Nimzz/Lyra",
+  "share-msg": "جرب تطبيق Lyra الرائع لتحميل الوسائط من أي مكان! https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "إعداد وتحميل الوسائط",
   "share-panel-title": "حفظ سريع Lyra",
   "sound-chime": "رنين حديث",

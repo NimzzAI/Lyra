@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
     namespace = "com.nimzz.lyra"
@@ -7,12 +8,9 @@ android {
         applicationId "com.nimzz.lyra"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 120
+        versionName "1.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
-        }
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
              // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
@@ -21,13 +19,11 @@ android {
     }
     signingConfigs {
         release {
-            def keystoreFile = file('release.keystore')
-            if (keystoreFile.exists()) {
-                storeFile keystoreFile
-                storePassword System.getenv("LYRA_KEYSTORE_PASSWORD") ?: 'android123'
-                keyAlias System.getenv("LYRA_KEY_ALIAS") ?: 'lyra'
-                keyPassword System.getenv("LYRA_KEY_PASSWORD") ?: 'android123'
-            }
+            storeFile file('lyra.jks')
+            storeType 'pkcs12'
+            storePassword 'android123'
+            keyAlias 'lyra'
+            keyPassword 'android123'
         }
     }
     buildTypes {
@@ -35,14 +31,29 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            if (file('release.keystore').exists()) {
-                signingConfig signingConfigs.release
-            }
+            signingConfig signingConfigs.release
         }
     }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+            universalApk true
+        }
+    }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+    kotlinOptions {
+        jvmTarget = '21'
+    }
     applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "Lyra v${variant.versionName}.apk"
+        variant.outputs.all { output ->
+            def abi = output.getFilter("ABI") ?: "universal"
+            outputFileName = "Lyra-v${variant.versionName}-${abi}.apk"
         }
     }
 }
@@ -64,6 +75,9 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
     implementation "com.squareup.okhttp3:okhttp:4.12.0"
+    implementation "io.github.junkfood02.youtubedl-android:library:0.17.3"
+    implementation "io.github.junkfood02.youtubedl-android:ffmpeg:0.17.3"
+    implementation "io.github.junkfood02.youtubedl-android:aria2c:0.17.3"
 }
 
 apply from: 'capacitor.build.gradle'

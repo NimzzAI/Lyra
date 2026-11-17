@@ -234,9 +234,17 @@ function showUpdateModal(data, latest, isManual = false) {
     window.Capacitor?.isNativePlatform?.() &&
     window.Capacitor?.getPlatform?.() === "ios";
 
-  const apkAsset = data?.assets?.find(
+  const apkList = (data?.assets || []).filter(
     (a) => a.name && a.name.toLowerCase().endsWith(".apk"),
   );
+  let abiName = "";
+  try {
+    abiName = window.LyraMainBridge?.ytdlpAbi?.() || "";
+  } catch (_) {}
+  const apkAsset =
+    apkList.find((a) => abiName && a.name.toLowerCase().includes(abiName)) ||
+    apkList.find((a) => a.name.toLowerCase().includes("universal")) ||
+    apkList[0];
   const ipaAsset = data?.assets?.find(
     (a) => a.name && a.name.toLowerCase().endsWith(".ipa"),
   );
@@ -387,7 +395,7 @@ shareAppBtn?.addEventListener("click", async () => {
     await Share.share({
       title: "Lyra App",
       text: lang["share-msg"],
-      url: "https://github.com/Nimzz/Lyra",
+      url: "https://github.com/NimzzAI/Lyra",
       dialogTitle: "Share Lyra",
     });
   } else {
@@ -395,7 +403,7 @@ shareAppBtn?.addEventListener("click", async () => {
       navigator.share({
         title: "Lyra App",
         text: lang["share-msg"],
-        url: "https://github.com/Nimzz/Lyra",
+        url: "https://github.com/NimzzAI/Lyra",
       });
     } else {
       showToast(t("toast-share-not-supported"));
@@ -414,7 +422,7 @@ window.testUpdatePopup = (mockVersion = "4.5.3") => {
         {
           name: `Lyra-v${mockVersion}.apk`,
           size: 3565158,
-          browser_download_url: "https://github.com/Nimzz/Lyra/releases/latest",
+          browser_download_url: "https://github.com/NimzzAI/Lyra/releases/latest",
         },
       ],
     },

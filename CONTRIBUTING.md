@@ -32,7 +32,7 @@ Thank you for your interest in contributing to **Lyra**! Whether you want to fix
 ## 💡 How Can I Contribute?
 
 ### 1. Reporting Bugs & Requesting Features
-* Check existing [GitHub Issues](https://github.com/Nimzz/Lyra/issues) before opening a new one to prevent duplicates.
+* Check existing [GitHub Issues](https://github.com/NimzzAI/Lyra/issues) before opening a new one to prevent duplicates.
 * Clearly specify your **Platform & OS version** (Android / macOS / Windows / iOS), **Lyra Version**, and the **Source URL** causing the error.
 
 ### 2. Translating & Localization (`public/js/i18n/`)
@@ -80,16 +80,16 @@ Lyra uses **CapacitorJS** paired with a native **OkHttp** bridge (`MainActivity.
 #### Single-Command Build
 
 ```bash
-# Build Debug APK
+# Build the APK
 npm run build:android
 
-# Build Signed Release APK (Requires keystore configured below)
+# Build Signed Release APK (uses the bundled android/app/lyra.jks)
 npm run build:android:release
 ```
 
-Output location: `android/app/build/outputs/apk/{debug|release}/Lyra v{VERSION}.apk`
+Output location: `android/app/build/outputs/apk/release/Lyra-v{VERSION}-{abi}.apk`
 
-To check Android 10 behaviour, create an emulator with a **Android 10 (API 29)** system image, install the debug APK, and launch it. CI repeats this on every build with `.github/scripts/android-smoke.sh`.
+To check Android 10 behaviour, create an emulator with a **Android 10 (API 29)** system image, install the APK, and launch it. CI repeats this on every build with `.github/scripts/android-smoke.sh`.
 
 #### Manual Build Steps
 
@@ -102,18 +102,11 @@ cd android
 ./gradlew assembleRelease
 ```
 
-#### Setting Up Signing Keystore (One-Time)
+#### Signing
 
-```bash
-keytool -genkey -v -keystore android/app/release.keystore -alias lyra \
-  -keyalg RSA -keysize 2048 -validity 10000 \
-  -storepass android123 -keypass android123 \
-  -dname "CN=Lyra, OU=Development, O=LyraApp, L=Unknown, ST=Unknown, C=ID"
-```
+The repository ships a signing key at `android/app/lyra.jks` (alias `lyra`, password `android123`) and `android/app/build.gradle` uses it for every build. Because the key is committed, no secrets are needed: every local or GitHub Actions build is signed with the same key and can update an earlier install.
 
-`android/app/build.gradle` already contains the `release` signing config: when `android/app/release.keystore` exists it is used automatically. The passwords default to `android123` and alias `lyra`; override them with the `LYRA_KEYSTORE_PASSWORD`, `LYRA_KEY_ALIAS`, and `LYRA_KEY_PASSWORD` environment variables. Never commit the keystore (it is git-ignored).
-
-For GitHub Actions, add the repository secrets `ANDROID_KEYSTORE_BASE64` (base64 of the keystore), `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, and `ANDROID_KEY_PASSWORD`. Without them the workflow publishes a debug-signed APK, which cannot update an earlier install because the signature changes on every build.
+The key is public by design, so anyone could sign an APK with it. If you distribute Lyra widely and want a private key, generate your own with `keytool -genkeypair -keystore android/app/lyra.jks -alias lyra -keyalg RSA -keysize 2048 -validity 36500`, update the passwords in `build.gradle`, and keep the new file out of the repository.
 
 ---
 
@@ -274,5 +267,5 @@ When modifying styles:
 ---
 
 Developed by Nimzz.  
-GitHub: https://github.com/Nimzz  
+GitHub: https://github.com/NimzzAI  
 Based on Mori by coflyn: https://github.com/coflyn/Mori

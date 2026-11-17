@@ -6,11 +6,11 @@ This guide covers everything you need to know about installing, sideloading, tro
 
 ## 📥 Download Official Releases
 
-Always download official Lyra release binaries directly from the **[GitHub Releases](https://github.com/Nimzz/Lyra/releases)** page.
+Always download official Lyra release binaries directly from the **[GitHub Releases](https://github.com/NimzzAI/Lyra/releases)** page.
 
 | Platform | Recommended Asset | Installation Method |
 | :--- | :--- | :--- |
-| **Android** | `Lyra-v{VERSION}-Android.apk` | Direct sideload / install |
+| **Android** | `Lyra-v{VERSION}-arm64-v8a.apk` (or `armeabi-v7a` / `x86_64` / `universal`) | Direct sideload / install |
 | **iOS** | `Lyra-v{VERSION}-iOS-Unsigned.ipa` | Sideload (AltStore / TrollStore / Scarlet) |
 | **Windows** | `Lyra-v{VERSION}-Windows-x64-Setup.exe` or `...-Portable.exe` | Run the installer, or run the portable file directly |
 | **Linux** | `Lyra-v{VERSION}-Linux-x64.AppImage` or `.deb` | Make the AppImage executable, or install the package |
@@ -21,7 +21,7 @@ Always download official Lyra release binaries directly from the **[GitHub Relea
 ## 📱 Android Installation & Troubleshooting
 
 ### Standard Installation
-1. Download `Lyra-v{VERSION}-Android.apk` on your phone.
+1. Download `Lyra-v{VERSION}-arm64-v8a.apk` (or `armeabi-v7a` / `x86_64` / `universal`) on your phone.
 2. Open the downloaded APK and tap **Install**.
 3. Grant storage permissions when prompted so Lyra can save media to your device.
 
@@ -133,5 +133,10 @@ Lyra is **100% ad-free, open-source, and contains zero trackers or telemetry**.
 ---
 
 Developed by Nimzz.  
-GitHub: https://github.com/Nimzz  
+GitHub: https://github.com/NimzzAI  
 Based on Mori by coflyn: https://github.com/coflyn/Mori
+
+
+## yt-dlp (Android)
+
+Open **Tools > yt-dlp Downloader**, paste a link, tap **Fetch info**, choose video or audio and a quality, then **Download**. Files land in `Download/Lyra`. If a site stops working, open **Settings > yt-dlp** and tap **Update**. Sites that need a login can use a `cookies.txt` exported from your browser (Settings > yt-dlp > Accounts). Not sure which APK to install? Pick `universal`; it is larger but works everywhere.

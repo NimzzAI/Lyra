@@ -6,9 +6,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Version-v1.0.0-brown?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/github/downloads/Nimzz/Lyra/total?style=flat-square&color=blue" alt="Downloads">
-  <img src="https://img.shields.io/github/stars/Nimzz/Lyra?style=flat-square&color=gold" alt="Stars">
-  <img src="https://img.shields.io/github/repo-size/Nimzz/Lyra?style=flat-square&color=purple" alt="Repo Size">
+  <img src="https://img.shields.io/github/downloads/NimzzAI/Lyra/total?style=flat-square&color=blue" alt="Downloads">
+  <img src="https://img.shields.io/github/stars/NimzzAI/Lyra?style=flat-square&color=gold" alt="Stars">
+  <img src="https://img.shields.io/github/repo-size/NimzzAI/Lyra?style=flat-square&color=purple" alt="Repo Size">
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License">
   <img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Windows%20%7C%20Linux%20%7C%20macOS-3DDC84?style=flat-square" alt="Platform">
 </p>
@@ -60,11 +60,11 @@ Download media in three steps:
 
 ## Download and installation
 
-Pre-compiled packages are published on [GitHub Releases](https://github.com/Nimzz/Lyra/releases).
+Pre-compiled packages are published on [GitHub Releases](https://github.com/NimzzAI/Lyra/releases).
 
 | Platform | Package | Guide |
 | :--- | :--- | :--- |
-| <img src="https://cdn.simpleicons.org/android/3DDC84" width="16" /> Android 7.0+ (including Android 10) | `Lyra-v...-Android.apk` | [Android installation](GUIDE.md#android-installation--troubleshooting) |
+| <img src="https://cdn.simpleicons.org/android/3DDC84" width="16" /> Android 7.0+ (including Android 10) | `Lyra-v...-arm64-v8a.apk` (most phones)<br>`Lyra-v...-armeabi-v7a.apk`<br>`Lyra-v...-x86_64.apk`<br>`Lyra-v...-universal.apk` | [Android installation](GUIDE.md#android-installation--troubleshooting) |
 | <img src="https://cdn.simpleicons.org/apple/000000" width="16" /> iOS | `Lyra-v...-iOS-Unsigned.ipa` | [iOS sideloading](GUIDE.md#ios-sideloading-guide) |
 | <img src="https://cdn.simpleicons.org/windows/0078D4" width="16" /> Windows 10 / 11 | `Lyra-v...-Windows-x64-Setup.exe`<br>`Lyra-v...-Windows-x64-Portable.exe` | [Desktop guide](GUIDE.md#desktop-windows-linux-macos) |
 | <img src="https://cdn.simpleicons.org/linux/FCC624" width="16" /> Linux | `Lyra-v...-Linux-x64.AppImage`<br>`Lyra-v...-Linux-x64.deb` | [Desktop guide](GUIDE.md#desktop-windows-linux-macos) |
@@ -91,6 +91,7 @@ Mobile-only features: Share-sheet Quick Save, background download service, float
 ## Features
 
 - Downloads watermark-free videos, photos, and audio from 16 platforms (TikTok, Instagram, YouTube, Twitter/X, Spotify, Apple Music, Pinterest, Facebook, Threads, Bandcamp, Pixiv, Bilibili, Douyin, RedNote, Reddit, TeraBox).
+- **yt-dlp engine (Android)** powered by Seal's youtubedl-android: 1200+ sites, format picker, playlists, MP3/M4A/Opus extraction, subtitles, SponsorBlock, cookies, and in-app yt-dlp updates.
 - Built-in media tools including a browser stream sniffer, offline audio extractor, image converter, PDF compressor, username availability checker, and anime scene search.
 - In-app APK updates directly through GitHub Releases with localized changelogs.
 - Customizable filename templates using `{platform}`, `{date}`, `{time}`, `{quality}`, `{num}`, and `{title}`, with persistent sequential counters per platform.
@@ -228,7 +229,7 @@ Scrapers are shipped as a single precompiled bundle at `public/js/scrapers/bundl
 
 Lyra is based on **[Mori](https://github.com/coflyn/Mori)** by **[coflyn](https://github.com/coflyn)**. Thank you for the excellent foundation, and for releasing it under GPL-3.0 so projects like this one can build on it. Please consider starring the original repository.
 
-Lyra is developed and maintained by **[Nimzz](https://github.com/Nimzz)**.
+Lyra is developed and maintained by **[Nimzz](https://github.com/NimzzAI)**.
 
 ---
 
@@ -236,7 +237,7 @@ Lyra is developed and maintained by **[Nimzz](https://github.com/Nimzz)**.
 
 - Personal and educational use only: Lyra is intended for personal media archiving and research. Users are responsible for complying with local copyright laws and the terms of service of each platform.
 - No media hosting: Lyra does not host, cache, or redistribute media files on external servers. All downloads execute directly on the user's device.
-- Upstream services: Lyra queries public web endpoints. If you operate an upstream service and want an endpoint removed, open a [GitHub issue](https://github.com/Nimzz/Lyra/issues).
+- Upstream services: Lyra queries public web endpoints. If you operate an upstream service and want an endpoint removed, open a [GitHub issue](https://github.com/NimzzAI/Lyra/issues).
 
 ---
 
@@ -251,5 +252,14 @@ Lyra is licensed under the [GNU General Public License v3.0 (GPL-3.0)](LICENSE).
 ---
 
 Developed by Nimzz.  
-GitHub: https://github.com/Nimzz  
+GitHub: https://github.com/NimzzAI  
 Based on Mori by coflyn: https://github.com/coflyn/Mori
+
+
+---
+
+## Also thanks to
+
+- [Seal](https://github.com/JunkFood02/Seal) by JunkFood02 for the yt-dlp Android integration approach and library.
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) and [youtubedl-android](https://github.com/yausername/youtubedl-android).
+- [Metrolist](https://github.com/MetrolistGroup/Metrolist) and [ArchiveTune](https://github.com/koiverse/ArchiveTune) for design inspiration.

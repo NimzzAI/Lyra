@@ -399,7 +399,7 @@ export default {
   "share-err-failed": "Не удалось разобрать ссылку.",
   "share-err-no-links": "Ссылки для скачивания не найдены.",
   "share-err-unsupported": "Неподдерживаемая ссылка платформы.",
-  "share-msg": "Попробуйте Lyra — классное приложение для загрузки медиа откуда угодно! https://github.com/Nimzz/Lyra",
+  "share-msg": "Попробуйте Lyra — классное приложение для загрузки медиа откуда угодно! https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "Настройка и загрузка медиа",
   "share-panel-title": "Lyra Быстрое сохранение",
   "sound-chime": "Колокольчик",

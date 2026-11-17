@@ -62,7 +62,8 @@ import "./modules/update.js";
 import "./modules/intents.js";
 import "./modules/download.js";
 import "./ui/downloadBubble.js";
-import { initBgAnimation } from "./modules/bgAnimation.js";
+import { initYtdlpView } from "./modules/ytdlp/view.js";
+import { initYtdlpSettings } from "./modules/ytdlp/settings.js";
 import { refreshGalleryPage } from "./modules/gallery.js";
 import {
   applyGalleryVisibility,
@@ -75,10 +76,11 @@ import {
   clearToolsTempCache,
 } from "./modules/tools/index.js";
 
-initBgAnimation();
 applyGalleryVisibility();
 applyToolsVisibility();
 initTools();
+initYtdlpView();
+initYtdlpSettings();
 
 // Batch Mode Toggle
 if (batchToggleBtn) {
@@ -487,3 +489,40 @@ if (
     }
   });
 }
+
+(function () {
+  const splash = document.getElementById("lyraSplash");
+  if (!splash) return;
+  const started = performance.now();
+  const hide = function () {
+    const wait = Math.max(0, 900 - (performance.now() - started));
+    setTimeout(function () {
+      splash.classList.add("out");
+      setTimeout(function () {
+        splash.remove();
+      }, 260);
+    }, wait);
+  };
+  if (document.readyState === "complete") hide();
+  else window.addEventListener("load", hide, { once: true });
+  setTimeout(function () {
+    if (splash.isConnected) splash.remove();
+  }, 6000);
+})();
+
+(function () {
+  const hideItem = function (el) {
+    if (!el) return;
+    const box = el.closest(".settings-item, .action-item") || el.closest(".bg-anim-card") || el;
+    box.classList.add("hidden");
+  };
+  ["animatedBgToggle", "glassSelect", "cornerSelect", "fontSelect"].forEach(function (id) {
+    hideItem(document.getElementById(id));
+  });
+  ["label-animated-bg", "label-bg-shapes", "label-brightness", "label-speed"].forEach(function (k) {
+    hideItem(document.querySelector('[data-i18n="' + k + '"]'));
+  });
+  document.querySelectorAll(".bg-anim-card").forEach(function (c) {
+    c.classList.add("hidden");
+  });
+})();

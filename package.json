@@ -1,21 +1,21 @@
 {
   "name": "lyra",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Lyra - fast and versatile media downloader for Android, iOS, Windows, Linux and macOS.",
   "author": "Nimzz",
   "license": "GPL-3.0-or-later",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nimzz/Lyra.git"
+    "url": "git+https://github.com/NimzzAI/Lyra.git"
   },
-  "homepage": "https://github.com/Nimzz/Lyra",
+  "homepage": "https://github.com/NimzzAI/Lyra",
   "bugs": {
-    "url": "https://github.com/Nimzz/Lyra/issues"
+    "url": "https://github.com/NimzzAI/Lyra/issues"
   },
   "scripts": {
     "sync": "npx cap sync",
-    "build:android": "npx cap sync android && cd android && ./gradlew assembleDebug",
+    "build:android": "npx cap sync android && cd android && ./gradlew assembleRelease",
     "build:android:release": "npx cap sync android && cd android && ./gradlew assembleRelease",
     "build:ios:ipa": "export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 && npx cap sync ios && xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -sdk iphoneos -archivePath build/Lyra.xcarchive archive CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=\"\" && mkdir -p Payload && cp -r build/Lyra.xcarchive/Products/Applications/App.app Payload/ && zip -r \"Lyra v$npm_package_version.ipa\" Payload && rm -rf Payload build",
     "desktop:install": "npm --prefix desktop install",

@@ -403,7 +403,7 @@ export default {
   "share-err-failed": "解析链接失败。",
   "share-err-no-links": "未找到下载链接。",
   "share-err-unsupported": "不支持的平台链接。",
-  "share-msg": "快来看看 Lyra，这是一款超棒的媒体下载应用！https://github.com/Nimzz/Lyra",
+  "share-msg": "快来看看 Lyra，这是一款超棒的媒体下载应用！https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "配置并下载媒体",
   "share-panel-title": "Lyra 快速保存",
   "sound-chime": "清脆风铃",

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PKG="com.nimzz.lyra"
-APK="$(ls apk/*.apk | head -n 1)"
+APK="$(ls apk/*universal*.apk apk/*x86_64*.apk 2>/dev/null | head -n 1)"
 
 adb wait-for-device
 adb shell input keyevent 82 || true

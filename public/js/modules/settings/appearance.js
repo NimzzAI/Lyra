@@ -5,12 +5,12 @@ import { currentLang, darkModeToggle } from "../core.js";
 import { syncSettingToNative } from "./nativeSync.js";
 
 const accentColors = {
-  black: { light: "#1a1917", dark: "#fffbf2" },
+  black: { light: "#7b5800", dark: "#f0c35a" },
 };
 
 export function applyColorAccent() {
-  const theme = localStorage.getItem("lyra_theme") || "light";
-  const color = accentColors.black[theme] || "#1a1917";
+  const theme = localStorage.getItem("lyra_theme") || "dark";
+  const color = accentColors.black[theme] || "#7b5800";
   document.documentElement.style.setProperty("--primary", color);
 }
 
@@ -83,7 +83,7 @@ export function applyToolsVisibility() {
  */
 export function initAppearance() {
   // 1. Theme initialization
-  const savedTheme = localStorage.getItem("lyra_theme") || "light";
+  const savedTheme = localStorage.getItem("lyra_theme") || "dark";
   document.documentElement.setAttribute("data-theme", savedTheme);
   if (darkModeToggle) darkModeToggle.checked = savedTheme === "dark";
 

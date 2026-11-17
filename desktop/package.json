@@ -1,10 +1,10 @@
 {
   "name": "lyra-desktop",
   "productName": "Lyra",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Lyra for Windows, Linux and macOS",
   "author": "Nimzz <nimzz@users.noreply.github.com>",
-  "homepage": "https://github.com/Nimzz/Lyra",
+  "homepage": "https://github.com/NimzzAI/Lyra",
   "license": "GPL-3.0-or-later",
   "private": true,
   "main": "main.js",

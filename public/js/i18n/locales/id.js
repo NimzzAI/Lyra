@@ -403,7 +403,7 @@ export default {
   "share-err-failed": "Gagal memproses tautan.",
   "share-err-no-links": "Tidak ada tautan unduhan ditemukan.",
   "share-err-unsupported": "Tautan platform tidak didukung.",
-  "share-msg": "Cobain Lyra, aplikasi keren untuk mengunduh media dari mana saja! https://github.com/Nimzz/Lyra",
+  "share-msg": "Cobain Lyra, aplikasi keren untuk mengunduh media dari mana saja! https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "Konfigurasi & unduh media",
   "share-panel-title": "Lyra Simpan Cepat",
   "sound-chime": "Modern Chime",

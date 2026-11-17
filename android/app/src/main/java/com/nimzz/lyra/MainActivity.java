@@ -176,7 +176,70 @@ public class MainActivity extends BridgeActivity {
         }
     }
 
+    private void ytdlpDispatch(String js) {
+        mainHandler.post(() -> {
+            try {
+                WebView webView = getBridge() != null ? getBridge().getWebView() : null;
+                if (webView != null) webView.evaluateJavascript(js, null);
+            } catch (Exception e) {
+                Log.e("LyraYtdlp", "dispatch failed: " + e.getMessage());
+            }
+        });
+    }
+
+    private LyraYtdlp.Sink ytdlpReply(String reqId) {
+        return json -> ytdlpDispatch(
+            "if (window.__lyraNativeCallbacks && window.__lyraNativeCallbacks['" + reqId + "']) { " +
+            "window.__lyraNativeCallbacks['" + reqId + "'](" + JSONObject.quote(json) + "); " +
+            "delete window.__lyraNativeCallbacks['" + reqId + "']; }");
+    }
+
+    private LyraYtdlp.Sink ytdlpEvents() {
+        return json -> ytdlpDispatch(
+            "if (window.__lyraYtdlpEvent) { window.__lyraYtdlpEvent(" + json + "); }");
+    }
+
     public class LyraMainBridge {
+        @JavascriptInterface
+        public String ytdlpAbi() {
+            return LyraYtdlp.abi();
+        }
+
+        @JavascriptInterface
+        public void ytdlpVersion(String reqId) {
+            LyraYtdlp.version(getApplicationContext(), ytdlpReply(reqId));
+        }
+
+        @JavascriptInterface
+        public void ytdlpUpdate(String channel, String reqId) {
+            LyraYtdlp.update(getApplicationContext(), channel, ytdlpReply(reqId));
+        }
+
+        @JavascriptInterface
+        public void ytdlpInfo(String optsJson, String reqId) {
+            LyraYtdlp.info(getApplicationContext(), optsJson, ytdlpReply(reqId));
+        }
+
+        @JavascriptInterface
+        public void ytdlpDownload(String optsJson, String reqId) {
+            LyraYtdlp.download(getApplicationContext(), optsJson, ytdlpEvents(), ytdlpReply(reqId));
+        }
+
+        @JavascriptInterface
+        public void ytdlpCancel(String taskId) {
+            LyraYtdlp.cancel(taskId);
+        }
+
+        @JavascriptInterface
+        public boolean ytdlpSaveCookies(String text) {
+            return LyraYtdlp.saveCookies(getApplicationContext(), text);
+        }
+
+        @JavascriptInterface
+        public boolean ytdlpHasCookies() {
+            return LyraYtdlp.hasCookies(getApplicationContext());
+        }
+
         @JavascriptInterface
         public String getScrapersBinaryBase64() {
             try (InputStream is = getAssets().open("public/js/scrapers.bin")) {

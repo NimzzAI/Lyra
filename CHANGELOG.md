@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-11-17
+
+### Added
+
+- **yt-dlp engine on Android**, ported from [Seal](https://github.com/JunkFood02/Seal) (youtubedl-android 0.17.3 with FFmpeg and aria2c). Open **Tools > yt-dlp Downloader** or tap **Open with yt-dlp** on the home page to download from 1200+ sites.
+  - Format picker (quality chips and a full format list), video or audio mode (M4A, MP3, Opus, best), playlist selection, a download queue with progress and cancel.
+  - Settings page for yt-dlp: engine version, stable or nightly updates, metadata and cover-art embedding, subtitles, SponsorBlock, aria2c, IPv4, proxy, cookies.txt, restricted filenames.
+  - Files are saved to `Download/Lyra` through MediaStore, so no storage permission is needed on Android 10 and newer.
+- Per-architecture APKs (`arm64-v8a`, `armeabi-v7a`, `x86_64`) plus a universal APK. The in-app updater picks the one that matches the device.
+
+### Changed
+
+- New interface inspired by Metrolist and ArchiveTune: Material 3 style tonal surfaces, rounded cards, pill navigation indicator, top app bar, sentence-case text, and system fonts (no web fonts are loaded anymore).
+- New color scheme: warm gold and cream derived from the Lyra icon, dark by default.
+- New launch splash: the Lyra mark and a short progress line, no particles or glows. Respects reduced-motion.
+- Repository moved to `NimzzAI/Lyra` (update checks, About links, badges).
+- Release artifacts no longer contain the word "debug" anywhere: only `release` builds are produced and named `Lyra-v{VERSION}-{abi}.apk`.
+
+### Removed
+
+- Animated canvas background, glassmorphism and UI corner presets, and the font picker (replaced by the fixed design system).
+
+---
+
 ## [1.0.0] - 2026-11-16
 
 First release of **Lyra**, a rebranded and extended fork of Mori 4.6.0 maintained by Nimzz.
@@ -22,6 +46,7 @@ First release of **Lyra**, a rebranded and extended fork of Mori 4.6.0 maintaine
 - **CI workflows** for Android (APK build plus an Android 10 / API 29 emulator smoke test), iOS (unsigned IPA), and desktop (Xvfb launch test and installers for all three systems).
 - **Android 10 hardening**: outdated System WebView detection with a clear update notice.
 - Credits section in About and README linking to the original Mori project.
+- Bundled signing key (`android/app/lyra.jks`) so every build, including GitHub Actions, produces an installable and updatable APK without any secrets.
 
 ### Changed
 

@@ -2,8 +2,8 @@
 import { translations, getInitialLanguage } from "../i18n/index.js";
 import { Filesystem } from "../utils/index.js";
 
-export const APP_VERSION = "1.0.0";
-export const GITHUB_REPO = "Nimzz/Lyra";
+export const APP_VERSION = "1.2.0";
+export const GITHUB_REPO = "NimzzAI/Lyra";
 export const UPDATE_CHECK_URL = `https://api.github.com/repos/${GITHUB_REPO}/releases/latest`;
 export const REPO_URL = `https://github.com/${GITHUB_REPO}`;
 

@@ -425,7 +425,7 @@
   "share-err-no-links": "ダウンロードリンクが見つかりませんでした。",
   "share-err-unsupported": "サポートされていないプラットフォームのリンクです。",
   "share-msg":
-    "どこからでもメディアをダウンロードできる素晴らしいアプリ、Lyraをチェックしてください！ https://github.com/Nimzz/Lyra",
+    "どこからでもメディアをダウンロードできる素晴らしいアプリ、Lyraをチェックしてください！ https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "メディアの設定とダウンロード",
   "share-panel-title": "Lyra クイック保存",
   "sound-chime": "モダンチャイム",

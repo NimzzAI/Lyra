@@ -403,7 +403,7 @@ export default {
   "share-err-failed": "Failed to parse link.",
   "share-err-no-links": "No download links found.",
   "share-err-unsupported": "Unsupported platform link.",
-  "share-msg": "Check out Lyra, an awesome app to download media from anywhere! https://github.com/Nimzz/Lyra",
+  "share-msg": "Check out Lyra, an awesome app to download media from anywhere! https://github.com/NimzzAI/Lyra",
   "share-panel-sub": "Configure & download media",
   "share-panel-title": "Lyra Quick Save",
   "sound-chime": "Modern Chime",
